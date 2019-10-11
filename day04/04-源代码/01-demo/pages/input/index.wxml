@@ -1,0 +1,3 @@
+<view>
+  用户名: <input value="{{username}}" bindinput="inputHandler"></input>
+</view>
