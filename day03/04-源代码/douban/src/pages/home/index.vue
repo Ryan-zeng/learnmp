@@ -15,7 +15,7 @@
         <div class="item-head">
           <span class="title">影院热映</span>
           <a class="more-link"
-             href="/pages/detail/main?type=theater">更多</a>
+             href="/pages/more/main?type=theater">更多</a>
         </div>
         <scroll-view scroll-x="true"
                      style="width: 100%">
@@ -48,7 +48,7 @@
         <div class="item-head">
           <span class="title">top250</span>
           <a class="more-link"
-             href="/pages/detail/main?type=top250">更多</a>
+             href="/pages/more/main?type=top250">更多</a>
         </div>
         <scroll-view scroll-x="true"
                      style="width: 100%">

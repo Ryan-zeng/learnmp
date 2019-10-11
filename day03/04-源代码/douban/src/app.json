@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/home/main",
+    "pages/more/main",
     "pages/detail/main"
   ],
   "window": {
