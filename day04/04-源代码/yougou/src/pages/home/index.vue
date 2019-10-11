@@ -1,13 +1,6 @@
 <template>
   <div>
-    <div class="header">
-      <icon type="search"
-            size="12">
-      </icon>
-      <input type="text"
-             placeholder="搜索"
-             placeholder-class="phCls">
-    </div>
+    <search></search>
     <swiper indicator-dots
             autoplay
             circular="true"
@@ -60,7 +53,11 @@
 
 <script>
 import request from '../../utils/request'
+import Search from '../../components/search'
 export default {
+  components: {
+    Search
+  },
   data () {
     return {
       imgList: [],
@@ -115,27 +112,6 @@ export default {
 </script>
 
 <style lang="less">
-.header {
-  background-color: #eb4450;
-  padding: 20rpx 16rpx 20rpx;
-  position: relative;
-  icon {
-    position: absolute;
-    margin: 20rpx;
-  }
-  input {
-    height: 60rpx;
-    border-radius: 6rpx;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    padding-left: 60rpx;
-  }
-  .phCls {
-    color: #bdbdbd;
-    font-size: 30rpx;
-  }
-}
-
 .swiper-item {
   width: 750rpx;
   height: 340rpx;

@@ -1,10 +1,16 @@
 <template>
-  <div>cart</div>
+  <div>
+    <Search></Search>
+  </div>
 </template>
 
 <script>
-export default {
+import Search from '../../components/search'
 
+export default {
+  components: {
+    Search
+  }
 }
 </script>
 
