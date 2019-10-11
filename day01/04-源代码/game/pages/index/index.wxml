@@ -1,0 +1,8 @@
+<view class="heros">
+  <block wx:for="{{heroList}}" wx:key="{{index}}">
+    <navigator class="item" url="/pages/detail/index?skill={{item.skill}}">
+      <image src="{{item.icon}}"></image>
+      <text>{{item.heroName}}</text>
+    </navigator>
+  </block>
+</view>

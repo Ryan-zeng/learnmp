@@ -1,0 +1,11 @@
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: green;
+}
+
+.rbox {
+  width: 748rpx;
+  height: 200rpx;
+  background-color: green;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 生成原始类型，而不是对象
+    let s1 = Symbol('foo')
+    let s2 = Symbol('bar')
+    console.log(s1)
+    console.log(s2)
+
+
+    const NAME = Symbol()
+    const AGE = Symbol()
+    // 中括号运算符可以用字符串变量的内容作为属性名
+    let obj = {
+      [NAME]: '一斤代码'
+    }
+
+    obj[AGE] = 18
+
+    console.log(obj[NAME]);
+    console.log(obj[AGE]);
+  </script>
+</body>
+
+</html>

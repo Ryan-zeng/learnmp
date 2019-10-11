@@ -1,0 +1,3 @@
+<view>
+<text>技能{{skill}}</text>
+</view>

@@ -1,0 +1,19 @@
+.heros{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.heros .item{
+  width: 33.33%;
+}
+
+.heros .item image{
+  width: 90%;
+  height: 100px;
+}
+
+.heros .item text{
+  font-size: 12px;
+}

@@ -1,0 +1,7 @@
+<!--pages/index/index.wxml-->
+<text>pages/index/index.wxml</text>
+
+<navigator url="/pages/detail/detail">去详情</navigator>
+
+<text>编程式导航</text>
+<view bindtap="toDetail" data-name="xjj">也去详情</view>
