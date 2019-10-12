@@ -19,7 +19,7 @@
           <p class="title">/<span>{{item2.cat_name}}</span>/</p>
           <div class="cate3-list">
             <div class="cate3-item"
-                 @click="toSearch"
+                 @click="toSearch(item3.cat_name)"
                  v-for="(item3, index3) in item2.children"
                  :key="index3">
               <img :src="'https://autumnfish.cn/wx/'+item3.cat_icon"
@@ -55,7 +55,7 @@ export default {
       request({
         url: '/api/public/v1/categories'
       }).then(res => {
-        console.log(res)
+        // console.log(res)
         let { message, meta } = res.data
         if (meta.status === 200) {
           this.cateList = message
@@ -64,7 +64,7 @@ export default {
       })
     },
     toSearch (name) {
-      wx.navigateTo({ url: '/pages/search/main' })
+      wx.navigateTo({ url: `/pages/search/main?keyword=${name}` })
     }
   }
 }
