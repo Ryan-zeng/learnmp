@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .header {
   background-color: #eb4450;
   padding: 20rpx 16rpx 20rpx;

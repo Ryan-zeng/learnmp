@@ -1,5 +1,9 @@
 {
   "pages": [
+    "pages/pull-list/index",
+    "pages/pullup-demo/index",
+    "pages/pulldown-counter/index",
+    "pages/pulldown-demo/index",
     "pages/index/index",
     "pages/logs/logs"
   ],

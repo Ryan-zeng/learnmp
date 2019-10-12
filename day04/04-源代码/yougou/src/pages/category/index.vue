@@ -19,6 +19,7 @@
           <p class="title">/<span>{{item2.cat_name}}</span>/</p>
           <div class="cate3-list">
             <div class="cate3-item"
+                 @click="toSearch"
                  v-for="(item3, index3) in item2.children"
                  :key="index3">
               <img :src="'https://autumnfish.cn/wx/'+item3.cat_icon"
@@ -61,6 +62,9 @@ export default {
           this.isInit = true
         }
       })
+    },
+    toSearch (name) {
+      wx.navigateTo({ url: '/pages/search/main' })
     }
   }
 }
