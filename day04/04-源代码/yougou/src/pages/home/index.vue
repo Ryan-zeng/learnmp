@@ -115,7 +115,6 @@ export default {
 .swiper-item {
   width: 750rpx;
   height: 340rpx;
-  background-color: green;
 }
 .nav {
   display: flex;

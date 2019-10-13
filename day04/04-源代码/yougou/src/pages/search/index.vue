@@ -10,7 +10,9 @@
         <input type="text"
                placeholder="搜索"
                placeholder-class="phCls"
-               v-model="keyword">
+               v-model="keyword"
+               @confirm="research"
+               confirm-type="search">
       </div>
 
       <div class="nav">
@@ -32,23 +34,23 @@
          :style="{marginTop:isScroll?'220rpx':'0'}">
       <div class="
          goods-item"
-         v-for="(item, index) in goodsList"
-         :key="index">
-      <div class="goods-img">
-        <img :src="item.goods_small_logo"
-             alt="">
-      </div>
+           v-for="(item, index) in goodsList"
+           :key="index">
+        <div class="goods-img">
+          <img :src="item.goods_small_logo"
+               alt="">
+        </div>
 
-      <div class="main">
-        <p class="detail">{{item.goods_name}}</p>
-        <p class="price">&yen;{{item.goods_price}}</p>
+        <div class="main">
+          <p class="detail">{{item.goods_name}}</p>
+          <p class="price">&yen;{{item.goods_price}}</p>
+        </div>
       </div>
     </div>
-  </div>
-  <p class="bottom-line"
-     v-show="isEnd">
-    -- 我是有底线的 --
-  </p>
+    <p class="bottom-line"
+       v-show="isEnd">
+      -- 我是有底线的 --
+    </p>
   </div>
 </template>
 
@@ -59,7 +61,7 @@ export default {
   data () {
     return {
       activeIndex: 0,
-      keyword: '小米',
+      keyword: '',
       isInit: true,
       // 搜索的商品列表
       goodsList: [],
@@ -70,9 +72,16 @@ export default {
     }
   },
   onLoad (options) {
-    // console.log(options)
+    console.log('onLoad')
     this.keyword = options.keyword
-    this.queryGoods()
+    // this.queryGoods()
+    this.research()
+  },
+  onShow () {
+    console.log('on show')
+  },
+  onHide () {
+    console.log('on hide')
   },
   onReachBottom () {
     // 当前商品总条数和total一至说明已经加载完成
@@ -83,17 +92,20 @@ export default {
     this.queryGoods()
   },
   onPullDownRefresh () {
-    this.pagenum = 1
-    this.goodsList = []
-    this.isEnd = false
-    this.isRequest = false
-    this.isScroll = false
-    this.queryGoods()
+    this.research()
   },
   onPageScroll () {
     this.isScroll = true
   },
   methods: {
+    research () {
+      this.pagenum = 1
+      this.goodsList = []
+      this.isEnd = false
+      this.isRequest = false
+      this.isScroll = false
+      this.queryGoods()
+    },
     queryGoods () {
       this.isRequest = true
       wx.showLoading()
@@ -126,102 +138,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.header {
-  position: static;
-  left: 0;
-  top: 0;
-  right: 0;
-  background-color: #fff;
-}
-.search-wrapper {
-  background-color: #eee;
-  padding: 20rpx 16rpx 20rpx;
-  position: relative;
-  icon {
-    position: absolute;
-    margin: 20rpx;
-  }
-  input {
-    height: 60rpx;
-    border-radius: 6rpx;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    padding-left: 60rpx;
-  }
-  .phCls {
-    color: #bdbdbd;
-    font-size: 30rpx;
-  }
-}
-.nav {
-  height: 102rpx;
-  display: flex;
-  border-bottom: 1px solid #ddd;
-  align-items: center;
-  .item {
-    width: 33.33%;
-    text-align: center;
-    &.active {
-      color: #eb4450;
-    }
-  }
-  .arrow {
-    position: relative;
-    &::before,
-    &::after {
-      position: absolute;
-      top: -10rpx;
-      right: 50rpx;
-      content: "";
-      width: 0;
-      height: 0;
-      border-width: 16rpx;
-      border-style: solid;
-      border-color: transparent transparent #666 transparent;
-    }
-    &::after {
-      top: 30rpx;
-      border-color: #666 transparent transparent transparent;
-    }
-  }
-}
-
-.goods-list {
-  padding-left: 20rpx;
-  .goods-item {
-    height: 262rpx;
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    padding: 30rpx 30rpx 30rpx 0;
-    box-sizing: border-box;
-    .goods-img {
-      img {
-        width: 200rpx;
-        height: 200rpx;
-      }
-    }
-    .main {
-      margin-left: 24rpx;
-      .detail {
-        color: #333;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2; // 控制多行的行数
-        -webkit-box-orient: vertical;
-      }
-      .price {
-        color: #eb4450;
-        font-size: 30rpx;
-        margin-top: 80rpx;
-      }
-    }
-  }
-}
-
-.bottom-line {
-  text-align: center;
-  line-height: 100rpx;
-  color: #999;
-}
+@import url("./index.less");
 </style>
