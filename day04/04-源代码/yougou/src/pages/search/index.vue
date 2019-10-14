@@ -35,7 +35,8 @@
       <div class="
          goods-item"
            v-for="(item, index) in goodsList"
-           :key="index">
+           :key="index"
+           @click="toItem(item.id)">
         <div class="goods-img">
           <img :src="item.goods_small_logo"
                alt="">
@@ -98,6 +99,9 @@ export default {
     this.isScroll = true
   },
   methods: {
+    toItem (id) {
+      wx.navigateTo({ url: '/pages/item/main' })
+    },
     research () {
       this.pagenum = 1
       this.goodsList = []
@@ -117,7 +121,7 @@ export default {
           pagenum: this.pagenum
         }
       }).then(res => {
-        // console.log(res)
+        console.log(res)
         wx.hideLoading()
         this.isRequest = false
         let { message, meta } = res.data
