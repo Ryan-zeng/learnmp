@@ -1,0 +1,6 @@
+<button bindtap="save">存数据</button>
+<button bindtap="getData">取数据</button>
+<button bindtap="clearData">清除数据</button>
+<button bindtap="clearItem">清除指定Key的数据</button>
+<button bindtap="setObj">storage存对象</button>
+<button bindtap="setArr">storage存数组</button>
