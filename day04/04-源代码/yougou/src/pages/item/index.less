@@ -1,3 +1,7 @@
+.wrapper {
+  background-color: #f4f4f4;
+}
+
 .swiper {
   height: 720rpx;
 }
@@ -9,6 +13,7 @@
 
 .goods-info {
   padding: 40rpx 0 30rpx 20rpx;
+  background-color: #fff;
 
   .price {
     color: #eb4450;
@@ -37,6 +42,9 @@
       width: 144rpx;
       color: #999;
       font-size: 24rpx;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
 
@@ -44,5 +52,97 @@
     color: #999;
     font-size: 24rpx;
     margin-top: 20rpx;
+  }
+}
+
+
+.promote {
+  margin-top: 20rpx;
+
+  li {
+    background-color: #fff;
+    height: 96rpx;
+    line-height: 96rpx;
+    font-size: 28rpx;
+    margin-top: 20rpx;
+    padding-left: 20rpx;
+
+    &.brother {
+      margin-top: 0;
+    }
+
+    .name {
+      color: #404040;
+    }
+
+    .detail {
+      color: #ff4055;
+      margin-left: 40rpx;
+
+      &.gray {
+        color: #dfdfdf;
+      }
+
+    }
+  }
+}
+
+.goods-detail {
+  margin-top: 20rpx;
+  background-color: #fff;
+
+  .tabs {
+
+    display: flex;
+
+    span {
+      flex: 1;
+      text-align: center;
+      color: #404040;
+      font-size: 22rpx;
+      height: 100rpx;
+      line-height: 100rpx;
+      box-sizing: border-box;
+
+      &.active {
+        color: #ff4055;
+        border-bottom: 10rpx solid #ff2644;
+      }
+    }
+  }
+}
+
+.fixed-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 98rpx;
+  display: flex;
+  background-color: #fff;
+
+  .icon-text {
+    flex: 2;
+    font-size: 20rpx;
+    color: #404040;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn {
+    flex: 3;
+    color: #fff;
+    text-align: center;
+    line-height: 98rpx;
+
+    &.add-cart-btn {
+      background-color: #ffb400;
+    }
+
+    &.buy-btn {
+      background-color: #ff2d4a;
+    }
   }
 }
