@@ -36,7 +36,7 @@
          goods-item"
            v-for="(item, index) in goodsList"
            :key="index"
-           @click="toItem(item.id)">
+           @click="toItem(item.goods_id)">
         <div class="goods-img">
           <img :src="item.goods_small_logo"
                alt="">
@@ -78,12 +78,6 @@ export default {
     // this.queryGoods()
     this.research()
   },
-  onShow () {
-    console.log('on show')
-  },
-  onHide () {
-    console.log('on hide')
-  },
   onReachBottom () {
     // 当前商品总条数和total一至说明已经加载完成
     if (this.isEnd || this.isRequest) {
@@ -100,7 +94,7 @@ export default {
   },
   methods: {
     toItem (id) {
-      wx.navigateTo({ url: '/pages/item/main' })
+      wx.navigateTo({ url: `/pages/item/main?id=${id}` })
     },
     research () {
       this.pagenum = 1

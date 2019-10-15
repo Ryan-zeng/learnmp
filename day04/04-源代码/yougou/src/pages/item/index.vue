@@ -5,28 +5,29 @@
             indicator-dots
             autoplay
             circular>
-      <block v-for="(item, index) in [1,2,3]"
+      <block v-for="(item, index) in goodsInfo.pics"
              :key="index">
         <swiper-item>
           <image class="swiper-img"
-                 src="https://img.alicdn.com/imgextra/i2/408107205/O1CN014IOh9d235wDTb3Pl3-408107205.jpg_430x430q90.jpg"></image>
+                 :src="item.pics_big_url"
+                 @click="previewImage(item.pics_big_url,goodsInfo.pics)"></image>
         </swiper-item>
       </block>
     </swiper>
     <!-- 商品信息 -->
     <div class="goods-info">
-      <p class="price">￥275</p>
+      <p class="price">￥{{goodsInfo.goods_price}}</p>
       <div class="name-favo">
-        <p class="name">初语2017秋装新款潮牌女装加绒宽松BF风慵懒卫衣女套头连帽上衣</p>
+        <p class="name">{{goodsInfo.goods_name}}</p>
         <div class=favo>
-          <span class="iconfont icon-changyongtubiao-xianxingdaochu-zhuanqu-"></span>
-          <span>收藏</span>
+          <span class="iconfont icon-fenxiang-1"></span>
+          <span>分享</span>
+          <button open-type="share">分享</button>
         </div>
       </div>
       <p class="express">快递: 免运费</p>
     </div>
-    <div class="promote"
-         v-if="false">
+    <div class="promote">
       <ul>
         <li>
           <span class="name">促销</span>
@@ -59,6 +60,7 @@
       <div class="icon-text">
         <span class="iconfont icon-kefu"></span>
         <span>联系客服</span>
+        <button open-type="contact">联系客服</button>
       </div>
       <div class="icon-text">
         <span class="iconfont icon-gouwuche"></span>
@@ -71,13 +73,56 @@
 </template>
 
 <script>
+import request from '../../utils/request'
 export default {
   data () {
     return {
       tabArr: [
         '图文介绍', '规格参数'
       ],
-      activeIndex: 0
+      activeIndex: 0,
+      goodsInfo: {},
+      isInit: false
+    }
+  },
+  onLoad (options) {
+    console.log(options.id)
+    this.getGoodsInfo(options.id)
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+  },
+  onShareAppMessage () {
+    return {
+      title: this.goodsInfo.goods_name
+    }
+  },
+  methods: {
+    getGoodsInfo (id) {
+      request({
+        url: `/api/public/v1/goods/detail?goods_id=${id}`
+      }).then(res => {
+        let { meta, message } = res.data
+        console.dir(message)
+        if (meta.status === 200) {
+          this.goodsInfo = message
+          this.isInit = false
+        }
+      })
+    },
+    /*
+    current 当前显示的图片
+    urls预览的图片集合
+    */
+    previewImage (current, imgs) {
+      let urls = []
+      imgs.forEach(v => {
+        urls.push(v.pics_big_url)
+      })
+      wx.previewImage({
+        current,
+        urls
+      })
     }
   }
 }
