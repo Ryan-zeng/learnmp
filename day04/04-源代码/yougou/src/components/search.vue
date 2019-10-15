@@ -1,5 +1,6 @@
 <template>
-  <div class="header">
+  <div class="header"
+       @click="toSearch">
     <icon type="search"
           size="12">
     </icon>
@@ -11,7 +12,11 @@
 
 <script>
 export default {
-
+  methods: {
+    toSearch () {
+      wx.navigateTo({ url: '/pages/search_all/main' })
+    }
+  }
 }
 </script>
 

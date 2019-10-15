@@ -115,6 +115,9 @@ export default {
 .swiper-item {
   width: 750rpx;
   height: 340rpx;
+  img {
+    width: 100%;
+  }
 }
 .nav {
   display: flex;
@@ -135,6 +138,7 @@ export default {
   position: relative;
   .banner {
     height: 85rpx;
+    width: 100%;
   }
   & > span {
     position: absolute;
@@ -152,8 +156,10 @@ export default {
     }
     .right {
       flex: 1;
+      display: flex;
+      flex-wrap: wrap;
       img {
-        width: 232rpx;
+        width: 230rpx;
         height: 190rpx;
         border-radius: 8rpx;
         margin-left: 12rpx;
