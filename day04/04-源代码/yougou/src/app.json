@@ -4,9 +4,9 @@
     "pages/category/main",
     "pages/cart/main",
     "pages/me/main",
-    "pages/search/main",
+    "pages/search_list/main",
     "pages/item/main",
-    "pages/search_all/main"
+    "pages/search/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

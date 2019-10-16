@@ -64,7 +64,7 @@ export default {
       })
     },
     toSearch (name) {
-      wx.navigateTo({ url: `/pages/search/main?keyword=${name}` })
+      wx.navigateTo({ url: `/pages/search_list/main?keyword=${name}` })
     }
   }
 }
