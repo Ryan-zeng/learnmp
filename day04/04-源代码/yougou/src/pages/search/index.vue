@@ -6,41 +6,85 @@
       </icon>
       <input type="text"
              placeholder="请输入你想要的商品"
-             v-model="keyword"
-             @confirm="toSearchList">
+             v-model.trim="keyword"
+             @confirm="toSearchList"
+             @input="querySuggest">
       <button v-show="keyword"
               @click="keyword=''">取消</button>
+      <div class="suggest">
+        <ul>
+          <li>黑马程序员</li>
+          <li>黑马程序员</li>
+          <li>黑马程序员</li>
+          <li>黑马程序员</li>
+          <li>黑马程序员</li>
+        </ul>
+      </div>
     </div>
     <div class="history-search">
       <div class="title">
         <span class="title">历史搜索</span>
         <icon type="clear"
-              size="18">
+              size="18"
+              @click="clearKeywordList">
         </icon>
       </div>
       <ul>
-        <li>小米</li>
-        <li>小米智能电视</li>
-        <li>小米空气净化器</li>
-        <li>西门子洗碗机</li>
-        <li>华为手机</li>
-        <li>苹果</li>
-        <li>锤子</li>
+        <li v-for="(item, index) in keywordList"
+            :key="index"
+            @click="clickSearch(item,index)">{{item}}</li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+const KEYWORD_KEY = 'keyword_list'
 export default {
   data () {
     return {
-      keyword: ''
+      keyword: '',
+      keywordList: wx.getStorageSync(KEYWORD_KEY) || []
     }
   },
   methods: {
+    querySuggest () {
+      console.log(this.keyword)
+    },
+    clickSearch (item, index) {
+      wx.navigateTo({ url: `/pages/search_list/main?keyword=${item}` })
+      this.keywordList.splice(index, 1)
+      this.keywordList.unshift(item)
+      wx.setStorageSync(KEYWORD_KEY, this.keywordList)
+    },
     toSearchList () {
+      if (!this.keyword) {
+        return
+      }
+
       wx.navigateTo({ url: `/pages/search_list/main?keyword=${this.keyword}` })
+      // 去重放前面
+      if (!this.keywordList.includes(this.keyword)) {
+        this.keywordList.unshift(this.keyword)
+      }
+      wx.setStorageSync(KEYWORD_KEY, this.keywordList)
+    },
+    clearKeywordList () {
+      wx.showModal({
+        title: '提示',
+        content: '你确定要删除吗',
+        showCancel: true, // 是否显示取消按钮,
+        cancelText: '取消', // 取消按钮的文字，默认为取消，最多 4 个字符,
+        cancelColor: '#000000', // 取消按钮的文字颜色,
+        confirmText: '确定', // 确定按钮的文字，默认为取消，最多 4 个字符,
+        confirmColor: '#3CC51F', // 确定按钮的文字颜色,
+        success: res => {
+          if (res.confirm) {
+            this.keywordList = []
+            wx.setStorageSync(KEYWORD_KEY, [])
+          }
+        }
+      })
     }
   }
 }
@@ -76,6 +120,18 @@ export default {
     border: 1rpx solid #bfbfbf;
     background-color: #eee;
     margin-left: 20rpx;
+  }
+  .suggest {
+    position: absolute;
+    left: 15rpx;
+    top: 90rpx;
+    width: 720rpx;
+    background-color: #ddd;
+    padding: 20rpx 10rpx;
+    box-sizing: border-box;
+    li {
+      margin-bottom: 10rpx;
+    }
   }
 }
 
