@@ -1,8 +1,12 @@
 {
-	"description": "项目配置文件。",
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
 	"setting": {
-		"urlCheck": false,
-		"es6": false,
+		"urlCheck": true,
+		"es6": true,
+		"enhance": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
@@ -17,10 +21,17 @@
 			"outputPath": ""
 		}
 	},
-	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
+	"libVersion": "2.8.1",
 	"appid": "wxfb518caf2ac4bb78",
-	"projectname": "yougou",
+	"projectname": "01-demo",
+	"miniprogramRoot": "miniprogram/",
+	"cloudfunctionRoot": "cloudfunctions/",
+	"cloudfunctionTemplateRoot": "",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"scripts": {},
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {
@@ -37,31 +48,16 @@
 			"list": []
 		},
 		"game": {
-			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": -1,
 			"list": [
 				{
-					"id": 0,
-					"name": "pages/search_list/main",
-					"pathName": "pages/search_list/main",
-					"query": "keyword=小米",
-					"scene": null
-				},
-				{
 					"id": -1,
-					"name": "pages/search/main",
-					"pathName": "pages/search/main",
-					"query": "keyword=小米",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/cart/main",
-					"pathName": "pages/cart/main",
-					"scene": null
+					"name": "db guide",
+					"pathName": "pages/databaseGuide/databaseGuide",
+					"query": ""
 				}
 			]
 		}

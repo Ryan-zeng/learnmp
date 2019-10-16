@@ -62,7 +62,8 @@
         <span>联系客服</span>
         <button open-type="contact">联系客服</button>
       </div>
-      <div class="icon-text">
+      <div class="icon-text"
+           @click="toCart">
         <span class="iconfont icon-gouwuche"></span>
         <span>购物车</span>
       </div>
@@ -123,6 +124,9 @@ export default {
         current,
         urls
       })
+    },
+    toCart () {
+      wx.switchTab({ url: '/pages/cart/main' })
     }
   }
 }
