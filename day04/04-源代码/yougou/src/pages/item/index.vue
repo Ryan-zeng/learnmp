@@ -20,7 +20,7 @@
       <div class="name-favo">
         <p class="name">{{goodsInfo.goods_name}}</p>
         <div class=favo>
-          <span class="iconfont icon-fenxiang-1"></span>
+          <span class="iconfont icon-share"></span>
           <span>分享</span>
           <button open-type="share">分享</button>
         </div>
@@ -64,10 +64,11 @@
       </div>
       <div class="icon-text"
            @click="toCart">
-        <span class="iconfont icon-gouwuche"></span>
+        <span class="iconfont icon-cart"></span>
         <span>购物车</span>
       </div>
-      <div class="btn add-cart-btn">加入购物车</div>
+      <div class="btn add-cart-btn"
+           @click="addCart">加入购物车</div>
       <div class="btn buy-btn">立即购买</div>
     </div>
   </div>
@@ -75,6 +76,7 @@
 
 <script>
 import request from '../../utils/request'
+const CART_KEY = 'cart'
 export default {
   data () {
     return {
@@ -127,6 +129,20 @@ export default {
     },
     toCart () {
       wx.switchTab({ url: '/pages/cart/main' })
+    },
+    // 将商品保存购物车
+    addCart () {
+      let goodsObj = wx.getStorageSync(CART_KEY) || {}
+      let goodsId = this.goodsInfo.goods_id
+      if (goodsObj[goodsId]) {
+        goodsObj[goodsId].num = goodsObj[goodsId].num + 1
+      } else {
+        goodsObj[goodsId] = {
+          num: 1,
+          checked: true
+        }
+      }
+      wx.setStorageSync(CART_KEY, goodsObj)
     }
   }
 }
