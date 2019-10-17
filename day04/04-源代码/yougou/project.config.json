@@ -19,7 +19,7 @@
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
-	"appid": "wxfb518caf2ac4bb78",
+	"appid": "wx4ec6df040af98951",
 	"projectname": "yougou",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 3,
 			"list": [
 				{
 					"id": 0,
@@ -61,6 +61,13 @@
 					"id": -1,
 					"name": "pages/cart/main",
 					"pathName": "pages/cart/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/login/main",
+					"pathName": "pages/login/main",
 					"scene": null
 				}
 			]

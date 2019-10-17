@@ -68,7 +68,8 @@
         <p class="total-price">合计： <span>￥{{totalPrice}}</span></p>
         <p class="notice">包含运费</p>
       </div>
-      <div class="total-btn">结算({{totalNum}})</div>
+      <div class="total-btn"
+           @click="doPay">结算({{totalNum}})</div>
     </div>
   </div>
 </template>
@@ -100,6 +101,14 @@ export default {
     wx.setStorageSync('cart', this.cartObj)
   },
   methods: {
+    doPay () {
+      let token = wx.getStorageSync('token')
+      if (token) {
+
+      } else {
+        wx.navigateTo({ url: '/pages/login/main' })
+      }
+    },
     getAddress () {
       wx.chooseAddress({
         success: (res) => {
