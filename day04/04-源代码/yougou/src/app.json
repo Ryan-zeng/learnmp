@@ -7,7 +7,8 @@
     "pages/search_list/main",
     "pages/item/main",
     "pages/search/main",
-    "pages/login/main"
+    "pages/login/main",
+    "pages/order/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
