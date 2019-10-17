@@ -1,76 +1,75 @@
 {
-	"description": "项目配置文件。",
-	"setting": {
-		"urlCheck": false,
-		"es6": false,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true,
-		"coverView": true,
-		"autoAudits": false,
-		"checkInvalidKey": true,
-		"checkSiteMap": true,
-		"uploadWithSourceMap": true,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		}
-	},
-	"miniprogramRoot": "dist/wx/",
-	"compileType": "miniprogram",
-	"appid": "wx4ec6df040af98951",
-	"projectname": "yougou",
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"currentL": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": 3,
-			"list": [
-				{
-					"id": 0,
-					"name": "pages/search_list/main",
-					"pathName": "pages/search_list/main",
-					"query": "keyword=小米",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/search/main",
-					"pathName": "pages/search/main",
-					"query": "keyword=小米",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/cart/main",
-					"pathName": "pages/cart/main",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/login/main",
-					"pathName": "pages/login/main",
-					"scene": null
-				}
-			]
-		}
-	}
+  "description": "项目配置文件。",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "autoAudits": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
+  },
+  "miniprogramRoot": "dist/wx/",
+  "compileType": "miniprogram",
+  "appid": "wxfb518caf2ac4bb78",
+  "projectname": "yougou",
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "plugin": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "currentL": -1,
+      "list": []
+    },
+    "miniprogram": {
+      "current": 3,
+      "list": [{
+          "id": 0,
+          "name": "pages/search_list/main",
+          "pathName": "pages/search_list/main",
+          "query": "keyword=小米",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/search/main",
+          "pathName": "pages/search/main",
+          "query": "keyword=小米",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/cart/main",
+          "pathName": "pages/cart/main",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/login/main",
+          "pathName": "pages/login/main",
+          "scene": null
+        }
+      ]
+    }
+  }
 }
