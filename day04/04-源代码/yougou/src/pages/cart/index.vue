@@ -29,11 +29,11 @@
         <span>优购生活馆</span>
       </div>
       <ul>
-        <li v-for="(item,a) in cartInfo"
+        <li v-for="(item,a) in cartList"
             :key="item.goods_id">
           <span class="iconfont"
-                :class="goodsObj[item.goods_id].checked?'icon-checked':'icon-unchecked'"
-                @click="goodsObj[item.goods_id].checked=!goodsObj[item.goods_id].checked"></span>
+                :class="item.checked?'icon-checked':'icon-unchecked'"
+                @click="item.checked=!item.checked"></span>
           <div class="main">
             <img :src="item.goods_small_logo"
                  alt="">
@@ -42,9 +42,12 @@
               <div class="price-num">
                 <p class="price"><span>￥</span>{{item.goods_price}}</p>
                 <div class="num">
-                  <div class="sub">+</div>
-                  <span>{{goodsObj[item.goods_id].num}}</span>
-                  <div class="add">-</div>
+                  <div class="sub"
+                       @click="item.num>1&&item.num--"
+                       :class="{disabled:item.num===1}">-</div>
+                  <span>{{item.num}}</span>
+                  <div class="add"
+                       @click="item.num++">+</div>
                 </div>
               </div>
             </div>
@@ -55,17 +58,18 @@
 
     <!-- 结算 -->
     <div class="total-price-wrapper">
-      <div class="select-all">
-        <span class="iconfont icon-checked"></span>
+      <div class="select-all"
+           @click="toggleAll">
+        <span class="iconfont"
+              :class="isSelectAll?'icon-checked':'icon-unchecked'"></span>
         <span class="select-all-label">全选</span>
       </div>
       <div class="info">
-        <p class="total-price">合计： <span>￥{{totalPrice}}.00</span></p>
+        <p class="total-price">合计： <span>￥{{totalPrice}}</span></p>
         <p class="notice">包含运费</p>
       </div>
-      <div class="total-btn">结算(3)</div>
+      <div class="total-btn">结算({{totalNum}})</div>
     </div>
-
   </div>
 </template>
  
@@ -77,14 +81,23 @@ export default {
   data () {
     return {
       address: wx.getStorageSync(ADDRESS_KEY),
-      goodsObj: wx.getStorageSync('cart'),
-      cartInfo: []
+      cartObj: wx.getStorageSync('cart'),
+      cartList: []
     }
   },
   onShow () {
-    this.goodsObj = wx.getStorageSync('cart')
+    this.cartObj = wx.getStorageSync('cart')
     console.log('onload')
-    this.getCartInfo(Object.keys(this.goodsObj).join(','))
+    this.getcartList(Object.keys(this.cartObj).join(','))
+  },
+  onHide () {
+    this.cartList.forEach(v => {
+      this.cartObj[v.goods_id] = {
+        num: v.num,
+        checked: v.checked
+      }
+    })
+    wx.setStorageSync('cart', this.cartObj)
   },
   methods: {
     getAddress () {
@@ -96,25 +109,60 @@ export default {
         }
       })
     },
-    getCartInfo (ids) {
+    getcartList (ids) {
       request({
         url: `/api/public/v1/goods/goodslist?goods_ids=${ids}`
       }).then(res => {
         let { meta, message } = res.data
         console.dir(message)
         if (meta.status === 200) {
-          this.cartInfo = message
+          message.forEach(v => {
+            v = Object.assign(v, this.cartObj[v.goods_id])
+            v.goods_price = v.goods_price.toFixed(2)
+          })
+          this.cartList = message
         }
       })
+    },
+    toggleAll () {
+      this.isSelectAll = !this.isSelectAll
     }
   },
   computed: {
     totalPrice () {
       let price = 0
-      this.cartInfo.forEach(v => {
-        price += v.goods_price * this.goodsObj[v.goods_id].num
+      this.cartList.forEach(v => {
+        if (v.checked) {
+          price += v.goods_price * v.num
+        }
       })
-      return price
+      return price.toFixed(2)
+    },
+    totalNum () {
+      let sum = 0
+      this.cartList.forEach(v => {
+        if (v.checked) {
+          sum += v.num
+        }
+      })
+      return sum
+    },
+    isSelectAll: {
+      get () {
+        let isAll = true
+        this.cartList.forEach(v => {
+          if (!v.checked) {
+            isAll = false
+          }
+        })
+        return isAll
+      },
+      set (value) {
+        // console.log(value)
+        this.cartList.forEach(v => {
+          v.checked = value
+        })
+      }
     }
   }
 }
@@ -230,6 +278,9 @@ page {
               justify-content: center;
               align-items: center;
               color: #666;
+              &.disabled {
+                background-color: #eee;
+              }
             }
           }
           .price {
@@ -256,7 +307,7 @@ page {
   .select-all {
     flex: 1;
   }
-  .icon-right {
+  .iconfont {
     margin: 0 30rpx;
   }
   .total-price span {

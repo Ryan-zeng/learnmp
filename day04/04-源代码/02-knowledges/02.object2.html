@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="(item, index) in songList" :key="item.id">
+        <p @click="item.name=item.name+'1'">{{item.name}}</p>
+        <p @click="playNumObj[item.id].num++">播放量:{{playNumObj[item.id].num}}</p>
+      </li>
+    </ul>
+  </div>
+  <script src="./lib/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        songList: [{
+            id: 1,
+            name: '两只蝴蝶'
+          },
+          {
+            id: 2,
+            name: '两只老虎'
+          },
+          {
+            id: 3,
+            name: '两只兔子'
+          }
+        ],
+        playNumObj: {
+          1: {
+            num: 111
+          },
+          2: {
+            num: 222
+          },
+          3: {
+            num: 333
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
