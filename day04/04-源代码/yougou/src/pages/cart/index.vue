@@ -8,7 +8,7 @@
           <p class="phone-num">{{address.telNumber}}</p>
           <span class="iconfont icon-arrow-right"></span>
         </div>
-        <p class="address-txt">收货地址：{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}</p>
+        <p class="address-txt">收货地址：{{detailAddr}}</p>
       </div>
       <!-- 选择地址 -->
       <div class="choose-address"
@@ -59,7 +59,7 @@
     <!-- 结算 -->
     <div class="total-price-wrapper">
       <div class="select-all"
-           @click="toggleAll">
+           @click="isSelectAll=!isSelectAll">
         <span class="iconfont"
               :class="isSelectAll?'icon-checked':'icon-unchecked'"></span>
         <span class="select-all-label">全选</span>
@@ -104,7 +104,35 @@ export default {
     doPay () {
       let token = wx.getStorageSync('token')
       if (token) {
+        // 判断购物车中是否存在数据
+        if (!this.totalNum) {
+          wx.showToast({
+            title: '您还没有选择商品哦',
+            icon: 'none',
+            duration: 1000
+          })
+        }
 
+        request({
+          url: `/api/public/v1/my/orders/create`,
+          method: 'POST',
+          header: {
+            'Authorization': token
+          },
+          data: {
+            order_price: this.totalPrice,
+            consignee_addr: this.detailAddr,
+            goods: this.checkedGoods
+          }
+        }).then(res => {
+          let { meta, message } = res.data
+          console.log(message)
+          if (meta.status === 200) {
+            wx.setStorageSync('order', message.order_number)
+            // 跳转到支持页面
+            wx.navigateTo({ url: '/pages/order/main' })
+          }
+        })
       } else {
         wx.navigateTo({ url: '/pages/login/main' })
       }
@@ -132,12 +160,25 @@ export default {
           this.cartList = message
         }
       })
-    },
-    toggleAll () {
-      this.isSelectAll = !this.isSelectAll
     }
   },
   computed: {
+    checkedGoods () {
+      let checkedGoods = []
+      this.cartList.forEach(v => {
+        if (v.checked) {
+          checkedGoods.push({
+            goods_id: v.goods_id,
+            goods_num: v.num,
+            goods_price: v.goods_price
+          })
+        }
+      })
+      return checkedGoods
+    },
+    detailAddr () {
+      return `${this.address.provinceName}${this.address.cityName}${this.address.countyName} ${this.address.detailInfo}`
+    },
     totalPrice () {
       let price = 0
       this.cartList.forEach(v => {
