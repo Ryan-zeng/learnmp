@@ -19,7 +19,7 @@ export default {
   methods: {
     getuserinfo (res) {
       console.log(res)
-      let userinfo = res.mp.detail
+      let detail = res.mp.detail
 
       // 得到code
       wx.login({
@@ -29,14 +29,15 @@ export default {
             method: 'POST',
             data: {
               code: res.code,
-              encryptedData: userinfo.encryptedData,
-              iv: userinfo.iv,
-              rawData: userinfo.rawData,
-              signature: userinfo.signature
+              encryptedData: detail.encryptedData,
+              iv: detail.iv,
+              rawData: detail.rawData,
+              signature: detail.signature
             }
           }).then(backData => {
             console.dir(backData)
             wx.setStorageSync('token', backData.data.message.token)
+            wx.setStorageSync('userInfo', detail.userInfo)
             // 返回购物车界面
             wx.navigateBack()
           })

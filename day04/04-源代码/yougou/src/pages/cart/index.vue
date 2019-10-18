@@ -137,7 +137,7 @@ export default {
           console.log(message)
           if (meta.status === 200) {
             // 跳转到支持页面
-            wx.navigateTo({ url: `/pages/order/main?order_number=${message.order_number}` })
+            wx.navigateTo({ url: `/pages/pay/main?order_number=${message.order_number}` })
           }
         })
       } else {
