@@ -37,7 +37,8 @@
       </li>
     </ul>
 
-    <div class="bottom-fixed">
+    <div class="bottom-fixed"
+         @click="prePay">
       微信支付
     </div>
   </div>
@@ -58,9 +59,17 @@ export default {
     this.address = wx.getStorageSync('address')
     this.cartObj = wx.getStorageSync('cart')
     this.getGoodsList(Object.keys(this.cartObj).join(','))
-    this.order_num = options.order_number
+    this.order_num = this.$mp.query.order_number
   },
   methods: {
+    arrangeCart () {
+      Object.keys(this.cartObj).forEach(k => {
+        if (this.cartObj[k].checked) {
+          delete this.cartObj[k]
+        }
+      })
+      wx.setStorageSync('cart', this.cartObj)
+    },
     getGoodsList (ids) {
       request({
         url: `/api/public/v1/goods/goodslist?goods_ids=${ids}`
@@ -74,6 +83,44 @@ export default {
           })
           this.goodsList = message
         }
+      })
+    },
+    prePay () {
+      let token = wx.getStorageSync('token')
+      if (!token) {
+        wx.navigateTo({ url: '/pages/login/main' })
+      }
+      request({
+        url: `/api/public/v1/my/orders/req_unifiedorder`,
+        method: 'POST',
+        header: {
+          'Authorization': token
+        },
+        data: {
+          order_number: this.order_num
+        }
+      }).then(res => {
+        let { message, meta } = res.data
+        if (meta.status === 200) {
+          wx.requestPayment({
+            timeStamp: message.pay.timeStamp, // 时间戳从1970年1月1日00:00:00至今的秒数,即当前的时间,
+            nonceStr: message.pay.nonceStr, // 随机字符串，长度为32个字符以下,
+            package: message.pay.package, // 统一下单接口返回的 prepay_id 参数值，提交格式如：prepay_id=*,
+            signType: message.pay.signType, // 签名算法，暂支持 MD5,
+            paySign: message.pay.paySign, // 签名,具体签名方案参见小程序支付接口文档,
+            success: res => {
+              console.log('支付成功')
+              // 删除购物车里面的已经支付的商品
+              this.arrangeCart()
+              wx.navigateBack()
+            },
+            fail: () => {
+              console.log('fail')
+            },
+            complete: () => { }
+          })
+        }
+        console.log(res)
       })
     }
   },
