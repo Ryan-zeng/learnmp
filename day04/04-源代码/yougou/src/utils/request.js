@@ -1,7 +1,7 @@
 function request (options) {
   return new Promise((resolve, reject) => {
     wx.request({
-      url: `https://autumnfish.cn/wx${options.url}`,
+      url: `https://www.uinav.com${options.url}`,
       method: options.method,
       data: options.data || {},
       headers: Object.assign({

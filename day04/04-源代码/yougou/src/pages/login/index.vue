@@ -38,7 +38,7 @@ export default {
             console.dir(backData)
             wx.setStorageSync('token', backData.data.message.token)
             // 返回购物车界面
-            wx.navigateTo()
+            wx.navigateBack()
           })
         }
       })
