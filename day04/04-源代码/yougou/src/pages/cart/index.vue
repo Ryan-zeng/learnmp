@@ -176,7 +176,7 @@ export default {
         if (v.checked) {
           checkedGoods.push({
             goods_id: v.goods_id,
-            goods_num: v.num,
+            goods_number: v.num,
             goods_price: v.goods_price
           })
         }

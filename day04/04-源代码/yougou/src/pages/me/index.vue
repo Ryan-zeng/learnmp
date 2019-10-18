@@ -36,7 +36,7 @@
         <ul>
           <li v-for="(item, index) in orderMenu"
               :key="index"
-              @click="toOrder(index)">
+              @click="toOrder(item.index)">
             <span class="iconfont"
                   :class="item.iconClass"></span>
             <span>{{item.name}}</span>
@@ -72,19 +72,23 @@ export default {
       orderMenu: [
         {
           name: '待付款',
-          iconClass: 'icon-pre-pay'
+          iconClass: 'icon-pre-pay',
+          index: 1
         },
         {
           name: '待收货',
-          iconClass: 'icon-pre-receive'
+          iconClass: 'icon-pre-receive',
+          index: 2
         },
         {
           name: '退款/退货',
-          iconClass: 'icon-refund'
+          iconClass: 'icon-refund',
+          index: 3
         },
         {
           name: '全部订单',
-          iconClass: 'icon-all-order'
+          iconClass: 'icon-all-order',
+          index: 0
         }
       ]
     }
