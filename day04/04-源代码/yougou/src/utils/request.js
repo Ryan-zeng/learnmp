@@ -4,7 +4,7 @@ function request (options) {
       url: `https://www.uinav.com${options.url}`,
       method: options.method,
       data: options.data || {},
-      headers: Object.assign({
+      header: Object.assign({
         'content-type': 'application/x-www-form-urlencoded'
       }, options.header),
       success: res => {

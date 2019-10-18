@@ -77,11 +77,10 @@
 <script>
 
 import request from '../../utils/request'
-const ADDRESS_KEY = 'address'
 export default {
   data () {
     return {
-      address: wx.getStorageSync(ADDRESS_KEY),
+      address: wx.getStorageSync('address'),
       cartObj: wx.getStorageSync('cart'),
       cartList: []
     }
@@ -106,11 +105,20 @@ export default {
       if (token) {
         // 判断购物车中是否存在数据
         if (!this.totalNum) {
-          wx.showToast({
-            title: '您还没有选择商品哦',
-            icon: 'none',
-            duration: 1000
-          })
+          // wx.showToast({
+          //   title: '您还没有选择商品哦'
+          // })
+          this.$toast('您还没有选择商品哦')
+          return
+        }
+
+        // 判断收货地址是否没有选择
+        if (!this.detailAddr) {
+          // wx.showToast({
+          //   title: '您还没有选择收货地址哦'
+          // })
+          this.$toast('请选择收货地址哦')
+          return
         }
 
         request({
@@ -128,9 +136,8 @@ export default {
           let { meta, message } = res.data
           console.log(message)
           if (meta.status === 200) {
-            wx.setStorageSync('order', message.order_number)
             // 跳转到支持页面
-            wx.navigateTo({ url: '/pages/order/main' })
+            wx.navigateTo({ url: `/pages/order/main?order_number=${message.order_number}` })
           }
         })
       } else {
@@ -142,7 +149,7 @@ export default {
         success: (res) => {
           console.log(res)
           this.address = res
-          wx.setStorageSync(ADDRESS_KEY, res)
+          wx.setStorageSync('address', res)
         }
       })
     },
@@ -177,6 +184,9 @@ export default {
       return checkedGoods
     },
     detailAddr () {
+      if (!this.address) {
+        return ''
+      }
       return `${this.address.provinceName}${this.address.cityName}${this.address.countyName} ${this.address.detailInfo}`
     },
     totalPrice () {
