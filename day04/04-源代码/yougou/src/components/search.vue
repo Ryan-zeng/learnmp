@@ -1,12 +1,12 @@
 <template>
   <div class="header"
        @click="toSearch">
-    <icon type="search"
-          size="12">
-    </icon>
-    <input type="text"
-           placeholder="搜索"
-           placeholder-class="phCls">
+    <div class="hotpot">
+      <icon type="search"
+            size="14">
+      </icon>
+      <span>搜索</span>
+    </div>
   </div>
 </template>
 
@@ -23,22 +23,20 @@ export default {
 <style lang="less" scoped>
 .header {
   background-color: #eb4450;
-  padding: 20rpx 16rpx 20rpx;
-  position: relative;
-  icon {
-    position: absolute;
-    margin: 20rpx;
-  }
-  input {
+  height: 100rpx;
+  padding: 20rpx 16rpx;
+  box-sizing: border-box;
+  .hotpot {
     height: 60rpx;
-    border-radius: 6rpx;
-    border: 1px solid #ccc;
     background-color: #fff;
-    padding-left: 60rpx;
-  }
-  .phCls {
-    color: #bdbdbd;
-    font-size: 30rpx;
+    border-radius: 6rpx;
+    color: #bbb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    icon {
+      margin: 4rpx 16rpx 0 0;
+    }
   }
 }
 </style>

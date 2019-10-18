@@ -1,108 +1,108 @@
 <template>
-  <div>
-    <search></search>
+  <div class="container">
+    <!-- 搜索热区 -->
+    <search />
+    <!-- 轮播图 -->
     <swiper indicator-dots
             autoplay
-            circular="true"
-            interval="2000"
-            duration="200">
-      <block v-for="(item,index) in imgList"
+            circular
+            indicator-color="#ccc"
+            indicator-active-color="#fff">
+      <block v-for="(item,index) in swiperImgs"
              :key="index">
         <swiper-item>
-          <view class="swiper-item">
-            <img :src="item.image_src"
-                 alt="">
-          </view>
+          <img :src="item.image_src"
+               alt="">
         </swiper-item>
       </block>
     </swiper>
-    <div class="nav">
-      <div v-for="(item,index) in cateList"
-           :key="index">
+    <!-- 分类 -->
+    <ul class="cat-list">
+      <li v-for="(item, index) in catList"
+          :key="index">
         <img :src="item.image_src"
-             :alt="name">
-        <p class="name">{{item.name}}</p>
-      </div>
-    </div>
-    <div class="floor"
-         v-for="(item, index) in floorList"
-         :key="index">
-      <span>{{item.floor_title.name}}</span>
-      <img class="banner"
-           :src="item.floor_title.image_src"
-           alt="">
-
-      <div class="main">
-        <div class="left">
-          <img :src="item.product_list[0].image_src"
-               alt="">
-        </div>
-        <div class="right">
-          <block v-for="(subItem, subIndex) in item.product_list"
-                 :key="subIndex">
-            <img v-if="subIndex!==0"
-                 :src="subItem.image_src"
+             alt="">
+      </li>
+    </ul>
+    <!-- 楼层 -->
+    <ul class="floor-list">
+      <li v-for="(item, index) in floorList"
+          :key="index">
+        <img class="banner"
+             :src="item.floor_title.image_src"
+             alt="">
+        <div class="product-list">
+          <div class="left">
+            <img :src="item.product_list[0].image_src"
                  alt="">
-          </block>
-
+          </div>
+          <div class="right">
+            <block v-for="(item2, index2) in item.product_list"
+                   :key="index2">
+              <img v-if="index2!==0"
+                   :src="item2.image_src"
+                   alt="">
+            </block>
+          </div>
         </div>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import request from '../../utils/request'
-import Search from '../../components/search'
+import request from '@/utils/request'
+import Search from '@/components/search'
 export default {
   components: {
     Search
   },
   data () {
     return {
-      imgList: [],
-      cateList: [],
+      // 轮播图图片数组
+      swiperImgs: [],
+      catList: [],
       floorList: []
     }
   },
 
   created () {
-    this.getImgs()
-    this.getCateList()
-    this.getFloor()
+    // 获取轮播图
+    this.getSwiperImgs()
+    this.getCatList()
+    this.getFloorList()
   },
   methods: {
-    getImgs () {
+    // 获取轮播图
+    getSwiperImgs () {
       request({
         url: '/api/public/v1/home/swiperdata'
       }).then(res => {
         // console.log(res)
         let { message, meta } = res.data
         if (meta.status === 200) {
-          this.imgList = message
+          this.swiperImgs = message
         }
       })
     },
-    getCateList () {
+    getCatList () {
       request({
         url: '/api/public/v1/home/catitems'
       }).then(res => {
-        // console.log(res)
         let { message, meta } = res.data
+
         if (meta.status === 200) {
-          // this.imgList = message
-          this.cateList = message
+          this.catList = message
         }
       })
     },
-    getFloor () {
+    getFloorList () {
       request({
         url: '/api/public/v1/home/floordata'
       }).then(res => {
         // console.log(res)
         let { message, meta } = res.data
         if (meta.status === 200) {
-          // this.imgList = message
           this.floorList = message
         }
       })
@@ -110,59 +110,45 @@ export default {
   }
 }
 </script>
+</script>
 
 <style lang="less">
-.swiper-item {
-  width: 750rpx;
-  height: 340rpx;
+swiper-item {
   img {
     width: 100%;
+    height: 340rpx;
   }
 }
-.nav {
+.cat-list {
   display: flex;
-  margin: 20rpx 0;
-  div {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  height: 194rpx;
+  justify-content: space-evenly;
+  align-items: center;
   img {
-    width: 80rpx;
-    height: 80rpx;
+    width: 128rpx;
+    height: 140rpx;
   }
 }
-// 楼层
-.floor {
-  position: relative;
+.floor-list {
   .banner {
-    height: 85rpx;
     width: 100%;
+    height: 88rpx;
   }
-  & > span {
-    position: absolute;
-    top: 10rpx;
-  }
-  .main {
-    padding: 20rpx 16rpx;
+  .product-list {
+    padding: 20rpx 17rpx;
     display: flex;
-    .left {
-      img {
-        width: 234rpx;
-        height: 390rpx;
-        border-radius: 8rpx;
-      }
+    .left > img {
+      width: 232rpx;
+      height: 386rpx;
     }
     .right {
-      flex: 1;
       display: flex;
       flex-wrap: wrap;
+      flex: 1;
       img {
-        width: 230rpx;
-        height: 190rpx;
-        border-radius: 8rpx;
-        margin-left: 12rpx;
+        width: 232rpx;
+        height: 188rpx;
+        margin: 0 0 10rpx 10rpx;
       }
     }
   }
