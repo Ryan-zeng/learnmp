@@ -11,9 +11,8 @@ function request (options) {
       url: `https://www.uinav.com${options.url}`,
       method: options.method,
       data: options.data || {},
-      header: Object.assign({
-        'content-type': 'application/x-www-form-urlencoded'
-      }, options.header),
+      // 后端解析请求参数的content-type为application/json,所以这里默认就行
+      header: options.header,
       success: res => {
         resolve(res)
       },

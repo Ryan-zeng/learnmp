@@ -130,7 +130,7 @@ export default {
           data: {
             order_price: this.totalPrice,
             consignee_addr: this.detailAddr,
-            goods: this.checkedGoods
+            goods: this.getCheckedGoods()
           }
         }).then(res => {
           let { meta, message } = res.data
@@ -162,15 +162,13 @@ export default {
         if (meta.status === 200) {
           message.forEach(v => {
             v = Object.assign(v, this.cartObj[v.goods_id])
-            v.goods_price = v.goods_price.toFixed(2)
+            v.goods_price = v.goods_price
           })
           this.cartList = message
         }
       })
-    }
-  },
-  computed: {
-    checkedGoods () {
+    },
+    getCheckedGoods () {
       let checkedGoods = []
       this.cartList.forEach(v => {
         if (v.checked) {
@@ -182,7 +180,9 @@ export default {
         }
       })
       return checkedGoods
-    },
+    }
+  },
+  computed: {
     detailAddr () {
       if (!this.address) {
         return ''
@@ -196,7 +196,7 @@ export default {
           price += v.goods_price * v.num
         }
       })
-      return price.toFixed(2)
+      return price
     },
     totalNum () {
       let sum = 0
