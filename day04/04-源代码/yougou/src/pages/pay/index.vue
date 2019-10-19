@@ -111,6 +111,7 @@ export default {
             success: res => {
               console.log('支付成功')
               // 删除购物车里面的已经支付的商品
+              console.log(res)
               this.arrangeCart()
               wx.navigateBack()
             },

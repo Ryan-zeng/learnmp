@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import Search from '../../components/search'
-import request from '../../utils/request'
+import Search from '@/components/search'
+import request from '@/utils/request'
 export default {
   data () {
     return {
@@ -47,7 +47,7 @@ export default {
   components: {
     Search
   },
-  created () {
+  onLoad () {
     this.getCateList()
   },
   methods: {
