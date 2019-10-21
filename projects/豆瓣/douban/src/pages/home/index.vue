@@ -21,7 +21,8 @@
                      style="width: 100%">
           <view class="scroll-view-item"
                 v-for="(item,index1) in theatersList"
-                :key="item.id">
+                :key="item.id"
+                @click="toDetail">
             <img :src="item.images.small"
                  alt="">
             <p class="title">{{item.title}}</p>
@@ -54,7 +55,8 @@
                      style="width: 100%">
           <view class="scroll-view-item"
                 v-for="(item,index2) in top250List"
-                :key="item.id">
+                :key="item.id"
+                @click="toDetail">
             <img :src="item.images.small"
                  alt="">
             <p class="title">{{item.title}}</p>
@@ -101,6 +103,9 @@ export default {
 
   },
   methods: {
+    toDetail () {
+      wx.navigateTo({ url: '/pages/detail/main' });
+    },
     // 获取影院热映电影列表
     getTheatersList () {
       request({
