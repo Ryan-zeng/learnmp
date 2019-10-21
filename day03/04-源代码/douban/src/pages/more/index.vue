@@ -13,7 +13,8 @@
 
     <div class="content">
       <p class="title">{{title}}</p>
-      <view class="movie-list">
+      <view class="movie-list"
+            @click="toDetail">
         <view class="item"
               v-for="(item,index2) in movieList"
               :key="item.id">
@@ -64,6 +65,9 @@ export default {
     });
   },
   methods: {
+    toDetail () {
+      wx.navigateTo({ url: '/pages/detail/main' });
+    },
     getTheatersList () {
       request({
         url: 'https://api.douban.com/v2/movie/in_theaters?apikey=0df993c66c0c636e29ecbb5344252a4a', //开发者服务器接口地址",
