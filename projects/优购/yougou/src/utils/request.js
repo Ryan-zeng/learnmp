@@ -2,9 +2,10 @@ function request (options) {
   return new Promise((resolve, reject) => {
     // 默认有一个loading
     if (!options.noLoading) {
-      wx.showLoading({
-        title: '加载中'
-      })
+      // wx.showLoading({
+      //   title: '加载中'
+      // })
+      wx.showNavigationBarLoading()
     }
 
     wx.request({
@@ -20,7 +21,8 @@ function request (options) {
         reject(err)
       },
       complete: () => {
-        wx.hideLoading()
+        // wx.hideLoading()
+        wx.hideNavigationBarLoading()
       }
     })
   })

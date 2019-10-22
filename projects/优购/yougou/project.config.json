@@ -41,12 +41,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 7,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/search_list/main",
-					"pathName": "pages/search_list/main",
+					"name": "pages/list/main",
+					"pathName": "pages/list/main",
 					"query": "keyword=小米",
 					"scene": null
 				},
@@ -96,6 +96,7 @@
 					"id": -1,
 					"name": "pages/category/main",
 					"pathName": "pages/category/main",
+					"query": "",
 					"scene": null
 				}
 			]

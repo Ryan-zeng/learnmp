@@ -74,7 +74,8 @@ export default {
   },
   onLoad (options) {
     console.log('onLoad')
-    this.keyword = options.keyword
+    // this.keyword = options.keyword
+    this.keyword = this.$root.$mp.query.keyword
     // this.queryGoods()
     this.research()
   },
@@ -106,7 +107,6 @@ export default {
     },
     queryGoods () {
       this.isRequest = true
-      wx.showLoading()
       request({
         url: '/api/public/v1/goods/search',
         data: {
@@ -116,7 +116,6 @@ export default {
         }
       }).then(res => {
         console.log(res)
-        wx.hideLoading()
         this.isRequest = false
         let { message, meta } = res.data
         if (meta.status === 200) {

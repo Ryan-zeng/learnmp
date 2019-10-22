@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/me/index",
+    "pages/cart/index",
+    "pages/01lifecircle/index",
+    "pages/target/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -9,5 +11,17 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/me/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/cart/index",
+        "text": "日志"
+      }
+    ]
+  }
 }
